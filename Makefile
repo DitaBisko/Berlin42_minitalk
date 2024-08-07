@@ -11,11 +11,10 @@ all: server client
 
 server: server.o
 	$(CC) $(CFLAGS) -o server server.o
-	rm -f $(OBJS)
 
 client: client.o
 	$(CC) $(CFLAGS) -o client client.o
-	rm -f $(OBJS)
+	
 clean:
 	rm -f $(OBJS)
 

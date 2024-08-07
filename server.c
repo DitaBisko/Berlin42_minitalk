@@ -51,13 +51,18 @@ int	main(void)
 	int					pid;
 
 	sa.sa_handler = handle_signal;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	//sigaction(SIGUSR1, &sa, NULL);
+	//sigaction(SIGUSR2, &sa, NULL);
 	pid = (getpid());
 	write(1, "Server PID:", 11);
 	put_pid(pid);
 	write(1, "\n", 1);
 	while (1)
-		sleep(1);
+	{
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
+	}
 	return (0);
 }

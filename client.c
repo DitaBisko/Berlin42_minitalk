@@ -6,7 +6,7 @@
 /*   By: dbisko <dbisko@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:43:18 by dbisko            #+#    #+#             */
-/*   Updated: 2024/07/10 16:51:30 by dbisko           ###   ########.fr       */
+/*   Updated: 2024/08/06 14:56:33 by dbisko           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	send_message(char *msg, int pid)
 				kill(pid, SIGUSR1);
 			else if (sig == 1)
 				kill(pid, SIGUSR2);
-			usleep(100);
 			i++;
+			usleep(1);
 		}
 		msg++;
 		if (c == '\0')
@@ -78,6 +78,9 @@ int	main(int ac, char **av)
 		send_message(av[2], pid);
 	}
 	else
-		write(1, "Usage: ./client <PID> <Message>\n", 32);
+	{
+		write(1, "Usage: ./client PID \"Message\"\n", 30);
+		write(1, "Escape special characters using \\\n", 34);
+	}
 	return (0);
 }
