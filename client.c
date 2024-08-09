@@ -60,7 +60,7 @@ void	send_message(char *msg, int pid)
 			else if (sig == 1)
 				kill(pid, SIGUSR2);
 			i++;
-			usleep(1);
+			usleep(60);
 		}
 		msg++;
 		if (c == '\0')
@@ -75,12 +75,18 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		pid = ft_atoi(av[1]);
+		if (kill(pid, 0) == -1)
+		{
+			write(2, "Invalid PID or permission denied\n", 33);
+			return (1);
+		}
 		send_message(av[2], pid);
+		return (0);
 	}
 	else
 	{
-		write(1, "Usage: ./client PID \"Message\"\n", 30);
-		write(1, "Escape special characters using \\\n", 34);
+		write(2, "Usage: ./client PID \"Message\"\n", 30);
+		write(2, "Escape special characters using \\\n", 34);
+		return (1);
 	}
-	return (0);
 }
