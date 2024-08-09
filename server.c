@@ -53,8 +53,6 @@ int	main(void)
 	sa.sa_handler = handle_signal;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
-	//sigaction(SIGUSR1, &sa, NULL);
-	//sigaction(SIGUSR2, &sa, NULL);
 	pid = (getpid());
 	write(1, "Server PID:", 11);
 	put_pid(pid);
